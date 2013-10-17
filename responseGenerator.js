@@ -3,7 +3,6 @@ var RP = require('./responseProcessor.js');
 var responseGenerator = function(endpoint) {
 	return function(req, res) {
 		var valid = true;
-		console.log(endpoint.params);
 		for (var param in endpoint.params) {
 			if (endpoint.params[param] != req.query[param]) {
 				valid = false;

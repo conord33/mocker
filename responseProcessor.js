@@ -14,10 +14,10 @@ var recursiveValueReplace = function(response) {
 var responseProcessor = function(response, repeat) {
 	if (repeat > 1) {
 		var resp = new Array();
-		var lastResp = null;
 		for (var i = 0; i < repeat; ++i) {
-			response = recursiveValueReplace(response);
-			resp.push(response);
+			tempResponse = JSON.parse(JSON.stringify(response));
+			processedResponse = recursiveValueReplace(tempResponse);
+			resp.push(processedResponse);
 		}
 		return resp;
 	} else {
