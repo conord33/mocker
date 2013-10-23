@@ -38,6 +38,8 @@ function ResponseGenerator() {
 		return function(req, res) {
 			if (paramsMatch(endpoint.request.params, req.query) && 
 				paramsMatch(endpoint.request.headers, req.headers)) {
+				res.status(endpoint.response.statusCode);
+				res.set(endpoint.response.headers);
 				response = processor(endpoint.response.body, endpoint.response.bodyRepeat);
 				res.send(JSON.stringify(response));
 			}
