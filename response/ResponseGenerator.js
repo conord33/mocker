@@ -36,9 +36,9 @@ function ResponseGenerator() {
 
 	this.genGet = function(endpoint) {
 		return function(req, res) {
-			if (paramsMatch(endpoint.params, req.query) && 
-				paramsMatch(endpoint.headers, req.headers)) {
-				response = processor(endpoint.response, endpoint.responseRepeat);
+			if (paramsMatch(endpoint.request.params, req.query) && 
+				paramsMatch(endpoint.request.headers, req.headers)) {
+				response = processor(endpoint.response.body, endpoint.response.bodyRepeat);
 				res.send(JSON.stringify(response));
 			}
 		}

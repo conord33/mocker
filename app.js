@@ -38,7 +38,7 @@ app.get('/', routes.index);
 
 // Generate GET requests
 endpoints.GET.forEach(function(endpoint) {
-	app.get(endpoint.path, RG.genGet(endpoint));
+	app.get(endpoint.request.path, RG.genGet(endpoint));
 });
 
 /*
