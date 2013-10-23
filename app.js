@@ -8,6 +8,7 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
+var middlewares = require('./middlewares');
 var ResponseGenerator = require('./response/ResponseGenerator.js');
 var endpoints = require('./endpoints.js');
 var config = require('./config.js');
@@ -20,8 +21,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+//app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(middlewares.rawBody());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
