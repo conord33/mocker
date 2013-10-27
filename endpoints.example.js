@@ -10,7 +10,10 @@ var endpoints = {
 				}
 			},
 			response: {
-				headers: {},
+				statusCode: 500,
+				headers: {
+					'content-lengtha':5
+				},
 				bodyRepeat: 9,
 				body: {
 					name: "Tupac",
@@ -21,6 +24,31 @@ var endpoints = {
 		}
 	],
 	POST: [
+		{
+			request: {
+				path: "/cats",
+				headers: {},
+				body: {
+					name: 'cat',
+					food: {
+						name: 'tasty treats',
+						price: 1.95
+					}
+				}
+			},
+			response: {
+				statusCode: 200,
+				headers: {
+					'content-lengtha':200
+				},
+				bodyRepeat: 9,
+				body: {
+					name: "Tupac",
+					age: "randInt",
+					numLegs: 4
+				}
+			}
+		}
 	],
 	PUT: [
 	],
