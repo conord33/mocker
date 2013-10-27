@@ -1,31 +1,6 @@
+var mockResponse = require('./Response.js');
 
 function ResponseGenerator() {
-	var RV = require('./responseValues.js');
-
-	var recursiveValueReplace = function(response) {
-		for (var key in response) {
-			if (typeof(response[key]) == 'object') {
-				response[key] = recursiveValueReplace(response[key]);
-			} else {
-				if (RV[response[key]]) response[key] = RV[response[key]]();
-			}
-		}
-		return response;
-	}
-
-	var processor = function(response, repeat) {
-		if (repeat > 1) {
-			var resp = new Array();
-			for (var i = 0; i < repeat; ++i) {
-				tempResponse = JSON.parse(JSON.stringify(response));
-				processedResponse = recursiveValueReplace(tempResponse);
-				resp.push(processedResponse);
-			}
-			return resp;
-		} else {
-			return recursiveValueReplace(response);
-		}
-	}
 
 	var paramsMatch = function(params1, params2) {
 		for (var param in params1) {
@@ -42,10 +17,8 @@ function ResponseGenerator() {
 		return function(req, res) {
 			if (paramsMatch(endpoint.request.headers, req.headers)) { 
 				if (paramsMatch(endpoint.request.params, req.query)) {
-					res.status(endpoint.response.statusCode);
-					res.set(endpoint.response.headers);
-					response = processor(endpoint.response.body, endpoint.response.bodyRepeat);
-					res.send(JSON.stringify(response));
+					var mockResp = new mockResponse(endpoint);
+					res.send(mockResp.outputResponse(res));
 				} else {
 					res.send('request parameters did not match expected input parameters');
 				}
@@ -59,10 +32,8 @@ function ResponseGenerator() {
 		return function(req, res) {
 			if (paramsMatch(endpoint.request.headers, req.headers)) { 
 				if (paramsMatch(endpoint.request.body, req.body)) {
-					res.status(endpoint.response.statusCode);
-					res.set(endpoint.response.headers);
-					response = processor(endpoint.response.body, endpoint.response.bodyRepeat);
-					res.send(JSON.stringify(response));
+					var mockResp = new mockResponse(endpoint);
+					res.send(mockResp.outputResponse(res));
 				} else {
 					res.send('request body did not match expected input body');
 				}
