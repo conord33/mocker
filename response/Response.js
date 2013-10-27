@@ -13,11 +13,11 @@ function Response(endpoint) {
 		return response;
 	}
 
-	var processor = function(body, repeat) {
+	var processor = function(response, repeat) {
 		if (repeat > 1) {
 			var resp = new Array();
 			for (var i = 0; i < repeat; ++i) {
-				tempResponse = JSON.parse(JSON.stringify(body));
+				tempResponse = JSON.parse(JSON.stringify(response));
 				processedResponse = recursiveValueReplace(tempResponse);
 				resp.push(processedResponse);
 			}
