@@ -23,7 +23,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 //app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(middlewares.rawBody());
+app.use(middlewares.json());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -43,13 +43,11 @@ endpoints.GET.forEach(function(endpoint) {
 	app.get(endpoint.request.path, RG.genGet(endpoint));
 });
 
-/*
 // Generate POST requests
 endpoints.POST.forEach(function(endpoint) {
-	responseCallBack = RG(endpoint);
-	app.post(endpoint.path, responseCallBack);
+	app.post(endpoint.request.path, RG.genPost(endpoint));
 });
-
+/*
 // Generate PUT requests
 endpoints.PUT.forEach(function(endpoint) {
 	responseCallBack = RG(endpoint);
