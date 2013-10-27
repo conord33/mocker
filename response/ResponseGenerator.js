@@ -30,11 +30,8 @@ function ResponseGenerator() {
 	var paramsMatch = function(params1, params2) {
 		for (var param in params1) {
 			if (typeof(params1[param]) == 'object' && typeof(params2[param]) == 'object') {
-				console.log('recurse');
 				if (!paramsMatch(params1[param], params2[param])) return false;
 			} else {
-				console.log('p1:' + params1[param]);
-				console.log('p2:' + params2[param]);
 				if (params1[param] != params2[param]) return false;
 			}
 		} 
