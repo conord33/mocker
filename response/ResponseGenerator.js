@@ -2,10 +2,13 @@ var mockResponse = require('./Response.js');
 
 function ResponseGenerator() {
 
-	var paramsMatch = function(params1, params2) {
+	var paramsMatch = function(params1, params2, wildCard) {
+		wildCard = wildCard || '*';
 		for (var param in params1) {
 			if (typeof(params1[param]) == 'object' && typeof(params2[param]) == 'object') {
 				if (!paramsMatch(params1[param], params2[param])) return false;
+			} else if (params1[param] == wildCard) {
+				if (!params2[param]) return false; 
 			} else {
 				if (params1[param] != params2[param]) return false;
 			}
