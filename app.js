@@ -47,27 +47,24 @@ endpoints.GET.forEach(function(endpoint) {
 endpoints.POST.forEach(function(endpoint) {
 	app.post(endpoint.request.path, RG.genPost(endpoint));
 });
-/*
+
 // Generate PUT requests
 endpoints.PUT.forEach(function(endpoint) {
-	responseCallBack = RG(endpoint);
-	app.get(endpoint.path, responseCallBack);
+	app.put(endpoint.request.path, RG.genPost(endpoint));
 });
 
+// Generate PATCH requests
+endpoints.PATCH.forEach(function(endpoint) {
+	app.patch(endpoint.request.path, RG.genPost(endpoint));
+});
+/*
 // Generate POST requests
-endpoints.POST.forEach(function(endpoint) {
+endpoints.DELETE.forEach(function(endpoint) {
 	responseCallBack = RG(endpoint);
 	app.get(endpoint.path, responseCallBack);
 });
 */
 
-app.post('*', function(req, res) {
-	console.log(req.headers);
-	console.log(req.params);
-	console.log(req.query);
-	console.log(req.body);
-	res.end();
-});
 
 console.log(endpoints);
 

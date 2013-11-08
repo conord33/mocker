@@ -52,6 +52,8 @@ var endpoints = {
 	],
 	PUT: [
 	],
+	PATCH: [
+	],
 	DELETE: [
 	]
 }
